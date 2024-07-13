@@ -1,3 +1,2 @@
-variable "app_name" {}
-variable "lambda_function_arn" {}
-variable "webserver_log_group_name" {}
+variable "config_rule_s3_bucket_tag_name" {}
+variable "sns_topic_arn" {}

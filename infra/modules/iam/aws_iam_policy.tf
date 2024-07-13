@@ -1,33 +1,21 @@
-resource "aws_iam_policy" "ecr_policy" {
-  name = "${var.app_name}-ecr-policy"
+resource "aws_iam_policy" "config_role_policy" {
 
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
         Action = [
-          "ecr:*"
+          "s3:*",
+          "ec2:Describe*",
+          "config:Put*",
+          "config:Describe*",
+          "config:Get*",
+          "config:List*",
+          "config:Deliver*"
         ]
         Effect   = "Allow"
         Resource = "*"
-      },
-    ]
-  })
-}
-
-resource "aws_iam_policy" "cloudwatch_policy" {
-  name = "${var.app_name}-cloudwatch-policy"
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "logs:*"
-        ]
-        Effect   = "Allow"
-        Resource = "arn:aws:logs:*:*:*"
-      },
+      }
     ]
   })
 }
@@ -40,10 +28,8 @@ resource "aws_iam_policy" "lambda_policy" {
     Statement = [
       {
         Action = [
-          "logs:CreateLogGroup",
-          "logs:CreateLogStream",
-          "logs:PutLogEvents",
-          "sns:Publish"
+          "s3:GetBucketTagging",
+          "config:PutEvaluations"
         ],
         Resource = "*",
         Effect   = "Allow"

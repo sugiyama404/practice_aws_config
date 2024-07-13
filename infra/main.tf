@@ -17,56 +17,29 @@ module "iam" {
   app_name = var.app_name
 }
 
-# ECR
-module "ecr" {
-  source     = "./modules/ecr"
-  image_name = var.image_name
-  app_name   = var.app_name
-}
-
-# BASH
-module "bash" {
-  source     = "./modules/bash"
-  region     = var.region
-  image_name = var.image_name
-}
-
-# network
-module "network" {
-  source   = "./modules/network"
-  app_name = var.app_name
-  api_port = var.api_port
-}
-
-# ECS
-module "ecs" {
-  source                      = "./modules/ecs"
-  app_name                    = var.app_name
-  sg_ecs_id                   = module.network.sg_ecs_id
-  subnet_private_subnet_1a_id = module.network.subnet_private_subnet_1a_id
-  subnet_public_subnet_1a_id  = module.network.subnet_public_subnet_1a_id
-  ecs_iam_role                = module.iam.ecs_iam_role
-  api_repository_url          = module.ecr.api_repository_url
-  api_port                    = var.api_port
-  webserver_log_group_name    = var.webserver_log_group_name
-}
-
 module "cloudwatch" {
-  source                   = "./modules/cloudwatch"
-  app_name                 = var.app_name
-  lambda_function_arn      = module.lambda.lambda_function_arn
-  webserver_log_group_name = var.webserver_log_group_name
+  source                         = "./modules/cloudwatch"
+  config_rule_s3_bucket_tag_name = module.config.config_rule_s3_bucket_tag_name
+  sns_topic_arn                  = module.sns.sns_topic_arn
+}
+
+module "s3" {
+  source   = "./modules/s3"
+  app_name = var.app_name
 }
 
 module "lambda" {
-  source                        = "./modules/lambda"
-  app_name                      = var.app_name
-  lambda_iam_role               = module.iam.lambda_iam_role
-  lambda_function_name          = var.lambda_function_name
-  sns_topic_arn                 = module.sns.sns_topic_arn
-  cloudwatch_lambda_trigger_arn = module.cloudwatch.cloudwatch_lambda_trigger_arn
-  region                        = var.region
-  webserver_log_group_name      = var.webserver_log_group_name
+  source                  = "./modules/lambda"
+  app_name                = var.app_name
+  lambda_function_name    = var.lambda_function_name
+  iam_role_arn_for_lambda = module.iam.iam_role_arn_for_lambda
+}
+
+module "config" {
+  source                  = "./modules/config"
+  iam_role_arn_for_config = module.iam.iam_role_arn_for_config
+  s3_bucket_id            = module.s3.s3_bucket_id
+  lambda_function_arn     = module.lambda.lambda_function_arn
 }
 
 module "sns" {

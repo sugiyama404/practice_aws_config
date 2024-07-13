@@ -1,22 +1,20 @@
-resource "aws_iam_role" "ecs_role" {
-  name = "ecs_role"
+resource "aws_iam_role" "config_role" {
+  name = "config-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
-        Sid : ""
         Action = "sts:AssumeRole"
         Effect = "Allow"
         Principal = {
-          Service = "ecs-tasks.amazonaws.com"
+          Service = "config.amazonaws.com"
         }
-      },
+      }
     ]
   })
-
   tags = {
-    Name = "${var.app_name}-ecs-iam-role"
+    Name = "${var.app_name}-iam-role-for-config"
   }
 }
 
@@ -37,6 +35,6 @@ resource "aws_iam_role" "lambda_role" {
   })
 
   tags = {
-    Name = "${var.app_name}-lambda-iam-role"
+    Name = "${var.app_name}-iam-role-for-lambda"
   }
 }

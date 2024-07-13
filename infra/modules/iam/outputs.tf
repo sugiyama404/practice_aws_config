@@ -1,7 +1,7 @@
-output "ecs_iam_role" {
-  value = aws_iam_role.ecs_role.arn
+output "iam_role_arn_for_config" {
+  value = aws_iam_role.config_role.arn
 }
 
-output "lambda_iam_role" {
+output "iam_role_arn_for_lambda" {
   value = aws_iam_role.lambda_role.arn
 }
