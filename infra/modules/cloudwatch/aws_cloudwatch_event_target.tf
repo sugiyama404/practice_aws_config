@@ -5,14 +5,25 @@ resource "aws_cloudwatch_event_target" "sns" {
 
   input_transformer {
     input_paths = {
-      "complianceType" = "$.detail.complianceType",
+      "detail-type"    = "$.detail-type",
+      "source"         = "$.source",
+      "time"           = "$.time",
+      "region"         = "$.region",
       "configRuleName" = "$.detail.configRuleName",
-      "resourceId"     = "$.detail.resourceId",
-      "resourceType"   = "$.detail.resourceType"
+      "messageType"    = "$.detail.messageType",
     }
 
     input_template = <<TEMPLATE
-"Config rule violation detected:\nCompliance Type: <complianceType>\nConfig Rule Name: <configRuleName>\nResource ID: <resourceId>\nResource Type: <resourceType>"
+{
+  "message": "Config rule violation detected:",
+  "Detail-type Type": "<detail-type>",
+  "Source": "<source>",
+  "Time": "<time>",
+  "Region": "<region>",
+  "Config Rule Name": "<configRuleName>",
+  "Message Type": "<messageType>"
+}
 TEMPLATE
+
   }
 }
