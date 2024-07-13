@@ -9,7 +9,7 @@ resource "aws_cloudwatch_event_rule" "config_rule_compliance" {
       "Config Rules Compliance Change"
     ],
     "detail" : {
-      "messageType" : ["ComplianceChangeNotification"],
+      "messageType" : ["ConfigurationItemChangeNotification"],
       "configRuleName" : [
         var.config_rule_s3_bucket_tag_name
       ],

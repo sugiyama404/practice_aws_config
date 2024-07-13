@@ -1,5 +1,5 @@
 resource "aws_config_config_rule" "s3_bucket_tag" {
-  name = "s3-bucket-name-tag-rule"
+  name = "required-tags"
 
   source {
     owner             = "AWS"
