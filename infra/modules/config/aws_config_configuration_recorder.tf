@@ -3,8 +3,7 @@ resource "aws_config_configuration_recorder" "main" {
   role_arn = var.iam_role_arn_for_config
 
   recording_group {
-    all_supported = true
+    all_supported                 = true
+    include_global_resource_types = true
   }
-
-  depends_on = [aws_config_delivery_channel.config_channel]
 }

@@ -6,12 +6,9 @@ resource "aws_iam_policy" "config_role_policy" {
       {
         Action = [
           "s3:*",
-          "ec2:Describe*",
-          "config:Put*",
-          "config:Describe*",
-          "config:Get*",
-          "config:List*",
-          "config:Deliver*"
+          "sns:*",
+          "config:*",
+          "cloudwatch:*"
         ]
         Effect   = "Allow"
         Resource = "*"

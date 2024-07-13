@@ -28,18 +28,10 @@ module "s3" {
   app_name = var.app_name
 }
 
-module "lambda" {
-  source                  = "./modules/lambda"
-  app_name                = var.app_name
-  lambda_function_name    = var.lambda_function_name
-  iam_role_arn_for_lambda = module.iam.iam_role_arn_for_lambda
-}
-
 module "config" {
   source                  = "./modules/config"
   iam_role_arn_for_config = module.iam.iam_role_arn_for_config
   s3_bucket_id            = module.s3.s3_bucket_id
-  lambda_function_arn     = module.lambda.lambda_function_arn
 }
 
 module "sns" {
