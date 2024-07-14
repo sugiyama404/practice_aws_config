@@ -54,7 +54,6 @@ bin/terraform_apply
 bin/terraform_destroy
 ```
 
-
 # 結果
 
 以下のメールが届きました。
@@ -63,15 +62,11 @@ bin/terraform_destroy
   <img src="sources/mail.png" alt="animated" width="400">
 </p>
 
+# Qiita記事
 
+技術詳細はQiitaに記載しています。
 
-
-
-
-
-
-
-
+[AWS ConfigによるS3バケット Nameタグ監視 - EventBridgeとSNSで通知](https://qiita.com/sugiyama404/items/5fc25fa629e9b4694b90)
 
 
 
