@@ -17,8 +17,8 @@ module "iam" {
   app_name = var.app_name
 }
 
-module "cloudwatch" {
-  source                         = "./modules/cloudwatch"
+module "eventbridge" {
+  source                         = "./modules/eventbridge"
   config_rule_s3_bucket_tag_name = module.config.config_rule_s3_bucket_tag_name
   sns_topic_arn                  = module.sns.sns_topic_arn
 }
