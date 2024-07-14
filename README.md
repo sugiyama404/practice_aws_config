@@ -62,7 +62,6 @@ bin/terraform_destroy
   <img src="sources/mail.png" alt="animated" width="400">
 </p>
 
-
 # Qiita記事
 
 技術詳細はQiitaに記載しています。
